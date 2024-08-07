@@ -1,0 +1,130 @@
+{% extends 'Apna/base.html'%}
+{%load static %}
+{% block title %} Cart {% endblock title %}
+{% block content %}
+
+<div>
+  <h1 style="align-items: center; text-align: center;">
+       Shopping Cart
+  </h1>
+</div>
+<div class="row row-cols-1 row-cols-md-3 g-4"  style="display: flex; gap: 60px; margin-top: 10px; bottom: 15px; color:rgb(16, 19, 19) ; justify-content: space-evenly; " >
+    {% if cart %}
+
+    {%endif%}
+    {% if cart %}
+      {% for item in cart%}
+    <div  style="width:auto;background-color: rgb(255, 255, 255); height: auto; align-items: center;margin:2px ; display: flex;">
+     
+      <div class="card h-100" style="width:auto;background-color: black; padding-bottom: 15px;margin-bottom: 15px;">
+        <img src="{{item.product.item_image.url}}" class="card-img-top" alt="..." style="object-fit: contain; height: 150px; width:170px;">
+        <div class="card-body">
+          
+          <h3 class="card-title" style="padding: 10px;"> {{item.product.item_name}}</h3>
+          <h2 style="padding: 10px;"> price : {{item.product.item_price}}</h2>
+          <br>
+          <label for="quantity" style="padding-right: 10px; font-size: large;padding: 10px;"> Quantity</label>
+          <a class= "plus-cart" pid="{{item.product.id}}" > <i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+        
+          <span id="quantity" > {{item.quantity}} </span>
+        
+         
+          
+          <a class= "minus-cart" pid="{{item.product.id}}"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>
+          <div style="flex: auto; justify-content: space-between;">
+            <br>
+            <button style="
+        display: inline-block;
+        padding: 5px 8px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #f13636;
+        border: none;
+        margin-left: 30px;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    " type="submit"
+    onclick="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+   onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+              <a class="remove-cart" pid="{{item.product.id}}" > Remove item</a>
+    </button>
+            
+          </div>
+      </div>
+    
+</div>
+</div>
+{%endfor%}
+</div>
+
+
+
+
+<div  style="flex-direction: row;  ">
+    <div  style="width:auto;background-color: rgb(255, 255, 255);align-items: center;margin:2px ;margin-left:43%; justify-content: space-evenly; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    object-fit: contain; 
+    " >
+
+      <div style="background-color: #e9b321; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 0 10px rgba(255, 253, 253, 0.1); padding: 20px; text-align: center; width:300px; margin-bottom: 2%;">
+        <p style="font-size: 18px; color: #504242; margin: 0;">Total Amount:</p> 
+        <p style="font-size: 20px; color: #000; margin: 10px 0 0;" id="amount">{{amount}} Rs</p>
+    </div>
+     
+      <button style="
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #28a745;
+        border: none;
+        align-items: center;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        margin-left: 5%;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    " type="submit"
+    onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+    onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';" 
+     Style="height: 35px; width: 80px; text-align: center;"id="pay_alert" class="pay_alert">proceed to pay</button>
+   
+      
+  
+    
+
+    </div>
+  </div>
+
+
+
+{%else%}<h1>cart is empty</h1>
+
+{%endif%}
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('pay_alert').addEventListener('click', function() {
+        var element = document.querySelector('#amount'); // Replace 'yourElementId' with the actual ID of the element whose innerHTML you are checking.
+        console.log(element.innerHTML);
+        console.log("hello");
+  
+        if (element.innerHTML === '0') {
+           alert('The value is zero add item');
+        } else {
+            // Proceed to payment logic
+            var checkoutUrl = "{% url 'checkout' %}";
+            console.log("Checkout URL:", checkoutUrl);
+            window.location.href = checkoutUrl;
+        }
+    });
+  });
+  </script>
+{% endblock content%}

@@ -1,0 +1,109 @@
+{% extends 'Apna/base.html' %}
+
+{% block title %}Home - My Site{% endblock %}
+{% load static %}
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4"  style="display: flex; gap: 60px; margin-top: 10px; bottom: 15px; color:azure ;width: 100%; display: grid;
+grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+object-fit: contain;
+margin-left: 100px;
+
+" 
+>  {%if page_number != 0 %}
+    {%for prod in page_obj %} 
+    
+      <div class="card h-100" style="width:295px;background-color: black; height:auto; ">
+        <img src="{{ prod.item_image.url }}" class="card-img-top" alt="..." style="object-fit: contain; height:290px; width: 295;display: flex;">
+        <div class="card-body">
+          <h3 class="card-title"style="margin:10px"> {{prod.item_name}}</h3>
+          <h2 style="margin:10px"> price :{{prod.item_price}}</h2>
+          <br>
+          <p class="card-text" style="margin:10px">all products of apnasweet are fresh</p>
+          {% if  request.user.is_authenticated %}
+          <form action="{% url 'add_to_cart' %}">
+            <input type="hidden" name="prod_id" value="{{ prod.id }}">
+                
+                <button style="
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 10px;
+        background-color: #28a745;
+        border: none;
+        margin-left: 70px;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    " type="submit"
+    onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+    onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+     Buy now 
+    </button>
+  
+              {% else %}
+              <button style="
+              display: inline-block;
+              padding: 15px 30px;
+              font-size: 18px;
+              font-weight: bold;
+              color: #fff;
+              background-color: #28a745;
+              border: none;
+              margin-left: 70px;
+              border-radius: 5px;
+              text-align: center;
+              text-decoration: none;
+              cursor: pointer;
+              margin-top: 15px;
+              transition: background-color 0.3s ease, transform 0.3s ease;
+          " type="submit"
+          onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+          onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+           <a href="{% url 'login'%}">Buy now</a>
+          </button> 
+              {% endif %}
+              </form>
+             
+        </div>
+        
+      </div>
+    
+    {% endfor %}
+    
+</div>
+
+{% endif %}
+
+<div style="text-align: center; font-family: Arial, sans-serif;padding-top: 50px;">
+
+  {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" style="padding: 10px; text-decoration: none; color: white; background-color: #007bff; border-radius: 5px; margin-right: 5px;">
+          Previous
+      </a>
+  {% endif %}
+
+  <span style="margin: 0 10px;">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+  </span>
+
+  {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" style="padding: 10px; text-decoration: none; color: white; background-color: #007bff; border-radius: 5px; margin-left: 5px;">
+          Next
+      </a>
+  {% endif %}
+  {% if invalid_page %}
+  <div class="error-message">
+      <h2>Oops! Invalid page number.</h2>
+  </div>
+  <div class="error-image">
+      <img src="{% static 'Apna/error.png' %}" alt="Oops!">
+  </div>
+{% endif %} 
+</div>
+
+{% endblock %}

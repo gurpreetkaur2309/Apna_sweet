@@ -1,0 +1,71 @@
+{% extends 'Apna/base.html' %}
+
+{% block title %}Home - My Site{% endblock title %}
+
+{% block content %}
+<div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h1>Order Receipt</h1>
+    </div>
+    <div style="margin-bottom: 20px;">
+        <h2 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">Order Details</h2>
+        <div style="margin-bottom: 20px;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead style="background: #343a40; color: #ffffff;">
+                    <tr>
+                        <th style="padding: 10px; border: 1px solid #dee2e6;">Product</th>
+                        <th style="padding: 10px; border: 1px solid #dee2e6;">Quantity</th>
+                        <th style="padding: 10px; border: 1px solid #dee2e6;">Price</th>
+                        
+                    </tr>
+                </thead>
+               
+                <tbody>
+                    {%for item in cart_items%} 
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #dee2e6;"> {{item.product.item_name}}</td>
+                        <td style="padding: 10px; border: 1px solid #dee2e6;"> {{item.quantity}}</td>
+                        <td style="padding: 10px; border: 1px solid #dee2e6;"> {{item.product.item_price}}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              
+                <tfoot style="background: #f1f1f1;">
+                    <tr>
+                        <td colspan="2" style="padding: 10px; border: 1px solid #dee2e6; font-weight: bold; background: #d4edda; color: #155724;">Grand Total</td>
+                        <td style="padding: 10px; border: 1px solid #dee2e6; font-weight: bold; background: #d4edda; color: #155724;"> {{totalamount}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div style="margin-bottom: 20px;">
+        <h2 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">Customer Details</h2>
+        <p style="margin: 5px 0;"><strong>Name:</strong>{{ user.first_name}}   {{ user.last_name}}</p>
+        {%for ad in a%}
+        <p style="margin: 5px 0;"><strong>Address:</strong> {{ad.address}}</p>
+        <p style="margin: 5px 0;"><strong>state</strong> {{ad.state}}</p>
+        <p style="margin: 5px 0;"><strong>city</strong> {{ad.city}}</p>
+
+        {%endfor%}
+    </div>
+    <a href="{% url 'clear_cart'%}" onclick="alertFunc()" id="success" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease;">
+       success
+    </a>
+</div>
+<script>
+    const alertFunc = () => {
+        
+        const x = document.getElementById('success');
+       
+        alert("SUCCESSFUL");
+        x.innerHTML = "Payment Successful";
+        window.location.href = "{% url 'checkout' %}"; 
+         
+       
+       };
+    
+</script>
+
+{%endblock%}

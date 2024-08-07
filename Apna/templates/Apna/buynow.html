@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apna Sweets</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Apna/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="navbar" >
+            
+            <div class="logo">
+                <h2>  Apna Sweets</h2>
+                
+                <!-- <button class="login-button"><a href="{% url 'login' %}">Login</a></button> -->
+                
+            </div>
+
+            <nav style="display: flex; align-items: center;">
+                <ul style="display: flex; align-items: center;">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'category' %}">All Categories</a></li>
+                    <li><a href="{% url 'brand' %}">All Brands</a></li>
+                    <li><a href="{% url 'allproducts' %}">All Products</a></li>
+                </ul>
+                <div class="search-bar" style="display: flex; align-items: center;">
+                    <input type="text" placeholder="Search..." pattern="[a-zA-Z][a-zA-Z]{0,20}" title="invalid value">
+                    <button type="submit">Search</button>
+                </div>
+            </nav>
+            
+        </div>
+    </header>
+    <h1>you are a authorized user </h1>
+    
+    <!-- <h2>{{u.username}}</h2> -->
+
+    <table style="border-collapse: collapse; width: 100%; text-align: left;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th style="border: 1px solid #ddd; padding: 8px;">Username</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">First Name</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Last Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for u in user %} 
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">{{u.username}}</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">{{u.first_name}}</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">{{u.last_name}}</td>
+            </tr>
+           
+            {%endfor%}
+        </tbody>
+    </table>
+   
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#categories">All Categories</a></li>
+                    <li><a href="#brands">All Brands</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Details</h3>
+                <p>Address: khatiwala tank</p>
+                <p>Contact Number: +91 8787879987</p>
+                <p>Email: apna@gmail.com</p>
+            </div>
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="https://www.youtube.com" target="_blank">YouTube</a></li>
+                    <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

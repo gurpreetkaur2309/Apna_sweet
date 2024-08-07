@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apna </title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Apna/styles.css' %}">
+    <style>.styled-button {
+        background-color: #d63636;
+        color: rgb(0, 0, 0);
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-left: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        height: 40px;
+        width: 100px;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        position: absolute;
+        top: 20px;
+        right: 400px;
+        left: 1800px;
+    }</style>
+</head>
+<body>
+    <header>
+        <div class="navbar" >
+            <div class="logo" >
+                <h2> <a href="{% url 'index' %}">Apna Sweets </a></h2>
+                {% if  request.user.is_authenticated %}
+                <p>Welcome, {{ request.user.username }}!</p>
+                <button style="
+        background-color: #d63636;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-left: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        height: 40px; width:100px; position:absolute;top:20px ;right:500px; left:1700px;
+    " onmouseover="this.style.backgroundColor='#ff1a1a'; this.style.transform='scale(1.05)';"
+       onmouseout="this.style.backgroundColor='#ff4d4d'; this.style.transform='scale(1)';"
+       onfocus="this.style.boxShadow='0 0 0 3px rgba(255, 77, 77, 0.5)';"
+       onblur="this.style.boxShadow='none';">
+       <a href="{% url 'logout_page' %}" style="color:black"> Logout</a>
+    </button>
+    
+    <button style="
+          display: inline-block;
+          padding: 10px 25px;
+          margin-left: 70px;
+          font-size: 17px;
+          font-weight: bold;
+          color: #fff;
+          background-color: #65c27b;
+          border: none;
+          border-radius: 5px;
+          text-align: center;
+          text-decoration: none;
+
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.3s ease;
+          height: 40px; width:130px; position: absolute; left:1500px ;top:20px
+      " 
+      onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+      onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';" class="orders">
+      <a href="{% url 'show_cart' %}">My cart </a>
+      </button>
+                {% else %}
+
+
+
+                <a href="{% url 'signup' %}" class="styled-button">Sign up </a>
+                <button style="
+                background-color: #d63636;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                border-radius: 5px;
+                cursor: pointer;
+               
+                transition: background-color 0.3s ease, transform 0.3s ease;
+                height: 40px; width:100px; position:absolute;top:20px ;right:500px; left:1700px;
+            " onmouseover="this.style.backgroundColor='#ff1a1a'; this.style.transform='scale(1.05)';"
+               onmouseout="this.style.backgroundColor='#ff4d4d'; this.style.transform='scale(1)';"
+               onfocus="this.style.boxShadow='0 0 0 3px rgba(255, 77, 77, 0.5)';"
+               onblur="this.style.boxShadow='none';">
+               <a href="{% url 'login' %}" style="color:black"> Login</a>
+            </button>
+            <a href="{% url 'signup' %}" class="styled-button">Sign up </a>
+
+                {% endif %}
+                {% if is_admin %}
+                <button style="display: inline-block;
+                    padding: 15px 30px;
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #fff;
+                    background-color: #28a745;
+                    border: none;
+                    border-radius: 5px;
+                    text-align: center;
+                    text-decoration: none;
+                   
+                    cursor: pointer;
+                    transition: background-color 0.3s ease, transform 0.3s ease; position:absolute;top:10px;left:1400px;"><a href="{% url 'buynow'%}">All user</a></button>
+                  {%endif%}
+            </div>
+            <!-- <div id="loginModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" onclick="closeLoginPage()">&times;</span>
+                    <h2>Login</h2>
+                    <form>
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username"><br><br>
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password"><br><br>
+                        <button type="submit">Login</button>
+                    </form>
+                </div>
+            </div> -->
+            <!-- <script src="{% static 'Apna/script.js' %}"></script> -->
+
+            <nav style="display: flex; align-items: center;">
+                <ul style="display: flex; align-items: center;">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="{% url 'category' %}">All Categories</a></li>
+                    <li><a href="{% url 'brand' %}">All Brands</a></li>
+                    <li><a href="{% url 'allproducts' %}">All Products</a></li>
+                </ul>
+
+                <form action="{% url 'searchbar'%}">
+                <div class="search-bar" style="display: flex; align-items: center;">
+                    <input type="text" placeholder="Search..." pattern="[a-zA-Z][a-zA-Z]{0,20}" title="only 20 alphabets" name="q">
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+            </nav>
+            
+        </div>
+    </header>
+    <div id="first" style="padding: 10px;  " > 
+        <h2 style="padding-top: 20px; color:#ffffff;font-weight: bolder; font-size: 50px;text-align: center; background-color: transparent;"> Today's deal</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4"  style="display: flex; margin-top: 10px; bottom: 15px; color:azure ; padding-bottom:125px; padding-top: 30px; width:auto; display: flex; justify-content: space-evenly;" >
+            
+              <div class="card h-100" style="width: 225px;background-color: black; height: auto;">
+                <img src="{% static 'Apna/desert.jpeg'%}" class="card-img-top" alt="..." style="object-fit: contain;">
+                <div class="card-body">
+                  <h3 class="card-title" style="text-align: center;"> Mix Fruit Cake</h3>
+                  <h2 style="text-align: center;"> Price : 50 Rs/pc</h2>
+                  <br>
+                  <p class="card-text" style="padding-left: 5px;">Mix fruit cake is a delightful delicious sweet</p>
+                  {% if  request.user.is_authenticated %}
+                  <br>
+                  <button style="
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #28a745;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        margin-left: 50px;
+        margin-bottom: 5px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    " 
+    onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+    onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+    <a href="{% url 'categories' 'B' %}"> Buy now </a>
+    </button>
+                  
+                {% else %}
+                <button style="
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #28a745;
+        border: none;
+        border-radius: 5px;
+        margin-left: 50px;
+        margin-bottom: 5px;
+        text-align: center;
+        text-decoration: none;
+        margin-left: 50px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    " 
+    onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+    onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+    <a href="{% url 'login' %}"> Buy now </a>
+    </button>
+                
+                {% endif %}
+                </div>
+                
+              </div>
+           
+            
+              <div class="card h-150" style="width: 225px; background-color: black; height: auto; ">
+                <img src="{% static 'Apna/image_sweet.jpeg'%}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h3 class="card-title" style="text-align: center;">Mix Sweets</h3>
+                  <h2 style="text-align: center;"> Price : 500 Rs/kg</h2>
+                  <br>
+                  <p class="card-text" style="padding-left: 5px;">All variety of mawa sweets makes mix sweets</p>
+                  {% if  request.user.is_authenticated %}
+                  <br>
+                  <button style="
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color:#28a745;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        margin-left: 50px;
+        margin-bottom: 5px;
+        margin-left: 50px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    " 
+    onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+    onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+    <a href="{% url 'categories' 'N' %}"> Buy now </a>
+    </button>
+                  
+                {% else %}
+                <button style="
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #28a745;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        margin-left: 50px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    " 
+    onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+    onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+    <a href="{% url 'login' %}"> Buy now </a>
+    </button>
+                
+                {% endif %}
+                  
+                </div>
+                
+              </div>
+          
+            
+              <div class="card h-100" style=" width: 225px;background-color: black; height: auto;">
+                <img src="{% static 'Apna/image_sweet.jpeg'%}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h3 class="card-title" style="text-align: center;">Special Thali</h3>
+                
+                  <h2 style="font-weight: bolder;text-align: center;"> Price : 150 Rs</h2>
+                   <br>
+                  <p class="card-text" style="padding-left: 5px;"> A thali special is a traditional Indian meal</p>
+                  {% if  request.user.is_authenticated %}
+                  <br>
+                  <button style="
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #28a745;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        margin-left: 50px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    " 
+    onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+    onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+    <a href="{% url 'categories' 'M' %}"> Buy now </a>
+    </button>
+                  
+                {% else %}
+                <button style="
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #28a745;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        margin-left: 50px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    " 
+    onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+    onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+    <a href="{% url 'login' %}"> Buy now </a>
+    </button>
+                
+                {% endif %}
+                </div>
+                <div class="card-footer">
+                  <small class="text-body-secondary"></small>
+                </div>
+               
+              </div>
+              
+          
+            
+                <div class="card h-100" style="width: 225px; background-color: black; height:max-content;">
+                  <img src="{% static 'Apna/image_sweet.jpeg'%}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    
+                    <h3 class="card-title"style="text-align: center;">Namkeen gujiya</h3>
+                    <h2 style="text-align: center;"> Price : 150 Rs/kg</h2>
+                    <br>
+                    <p class="card-text" style="padding-left: 5px;">Namkeen gujiya is a savory twist on the sweet Gujiya</p>
+                    {% if  request.user.is_authenticated %}
+                    <br>
+                    <button style="
+          display: inline-block;
+          padding: 15px 30px;
+          font-size: 18px;
+          font-weight: bold;
+          color: #fff;
+          background-color: #28a745;
+          border: none;
+          border-radius: 5px;
+          text-align: center;
+          text-decoration: none;
+          margin-left: 50px;
+          margin-bottom: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.3s ease;
+      " 
+      onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+      onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+      <a href="{% url 'categories' 'S' %}"> Buy now </a>
+      </button>
+                    
+                  {% else %}
+                  <button style="
+          display: inline-block;
+          padding: 15px 30px;
+          font-size: 18px;
+          font-weight: bold;
+          color: #fff;
+          background-color: #28a745;
+          border: none;
+          border-radius: 5px;
+          text-align: center;
+          text-decoration: none;
+          margin-left: 50px;
+          margin-bottom: 5px;
+          
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.3s ease;
+      " 
+      onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+      onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+      <a href="{% url 'login' %}"> Buy now </a>
+      </button>
+                  
+                  {% endif %}
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-body-secondary"></small>
+                  </div>
+                </div>
+                
+              </div>
+              
+          </div>     
+   
+
+    <footer style="flex-shrink: 0;">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="{% url 'category' %}">All Categories</a></li>
+                    <li><a href="{% url 'brand' %}">All Brands</a></li>
+                    <li><a href="{% url 'allproducts' %}">All products</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Details</h3>
+                <p>Address: khatiwala tank</p>
+                <p>Contact Number: +91 8787879987</p>
+                <p>Email: apna@gmail.com</p>
+            </div>
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="https://www.youtube.com" target="_blank">YouTube</a></li>
+                    <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

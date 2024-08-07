@@ -1,0 +1,121 @@
+{% extends 'Apna/base.html' %}
+
+{% block title %}Home - My Site{% endblock %}
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4"  style="display: flex; gap: 60px; margin-top: 10px; bottom: 15px; color:azure ;width: 100%; display: grid;
+grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+object-fit: contain;
+margin-left: 100px;
+" 
+>
+    {%for prod in product %} 
+    
+      <div class="card h-100" style="width:295px;background-color: black; height:auto;">
+        <img src="{{ prod.item_image.url }}" class="card-img-top" alt="..." style="object-fit: contain; height:300px ;display: flex;">
+        <div class="card-body" >
+          <h3 class="card-title"> {{prod.item_name}}</h3>
+          <h2> price :{{prod.item_price}}</h2>
+          <br>
+          <p class="card-text">all products of apnasweet are fresh</p>
+          {% if  request.user.is_authenticated %}
+          <form action="{% url 'add_to_cart' %}">
+            <input type="hidden" name="prod_id" value="{{ prod.item_name }}">
+                
+                <button style="
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #28a745;
+        border: none;
+        margin-left: 70px;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    " type="submit"
+    onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+    onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+     Buy now 
+    </button>
+  
+              {% else %}
+              <button style="
+              display: inline-block;
+              padding: 15px 30px;
+              font-size: 18px;
+              font-weight: bold;
+              color: #fff;
+              background-color: #28a745;
+              border: none;
+              margin-left: 70px;
+              border-radius: 5px;
+              text-align: center;
+              text-decoration: none;
+              cursor: pointer;
+              margin-top: 15px;
+              transition: background-color 0.3s ease, transform 0.3s ease;
+          " type="submit"
+          onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+          onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+           <a href="{% url 'login'%}">Buy now</a>
+          </button> 
+              {% endif %}
+              </form>
+              {% if  request.user.is_authenticated %}
+                    <br>
+                    <button style="
+          display: inline-block;
+          padding: 10px 25px;
+          margin-left: 70px;
+          font-size: 18px;
+          font-weight: bold;
+          color: #fff;
+          background-color: #65c27b;
+          border: none;
+          border-radius: 5px;
+          text-align: center;
+          margin-top: 15px;
+          text-decoration: none;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.3s ease;
+      " 
+      onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+      onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+      <a href="{% url 'show_cart' %}">Show cart </a>
+      </button>
+                    
+                  {% else %}
+                  <button style="
+          display: inline-block;
+          padding: 15px 30px;
+          font-size: 18px;
+          font-weight: bold;
+          margin-left: 70px;
+          color: #fff;
+          background-color: #28a745;
+          border: none;
+          margin-top: 15px;
+          border-radius: 5px;
+          text-align: center;
+          text-decoration: none;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.3s ease;
+      " 
+      onmouseover="this.style.backgroundColor='#218838'; this.style.transform='scale(1.05)';" 
+      onmouseout="this.style.backgroundColor='#28a745'; this.style.transform='scale(1)';">
+      <a href="{% url 'login' %}"> Show Cart </a>
+      </button>
+                  
+                  {% endif %}
+        </div>
+        
+      </div>
+    
+    {% endfor %}
+</div>
+{% endblock %}
